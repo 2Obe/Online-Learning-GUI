@@ -2,9 +2,11 @@
 
 ### **Overview**
 This project presents a graphical user interface for retraining a pretrained binary classification model. The GUI can be further adjusted to more than two classes.
-**You can finde the corresponding code with all data and models here: https://bwsyncandshare.kit.edu/s/MFb8DN7FYQb8KPS**
+
+**You can find the corresponding code with all data and models here: https://bwsyncandshare.kit.edu/s/MFb8DN7FYQb8KPS**
+
 ![](OL_process.png)
-Furthermore, a concrete usecase is given for pitting detection of ball screw drives (BSD). The classifiaction task is to decide if a given image has a pitting (1) or not (0). With an unsupervised pretrained Convolutional Base Embeddings for cropped images of BSDs are extracted and classified with an MLP-classifier (*scikit-learn*). The training is conducted on a **trainset** of 10,000 (randomly picked out of 23,717 images (*data_train*)) train images. For a baseline check, 180 images (randomly picked named the **holdoutset**) with new wear and/or soiling patterns (*data_new*) are classfified with this model and accuracy is stored.
+Furthermore, a concrete usecase is given for pitting detection of ball screw drives (BSD). The classification task is to decide if a given image has a pitting (1) or not (0). With an unsupervised pretrained Convolutional Base Embeddings for cropped images of BSDs are extracted and classified with an MLP-classifier (*scikit-learn*). The training is conducted on a **trainset** of 10,000 (randomly picked out of 23,717 images (*data_train*)) train images. For a baseline check, 180 images (randomly picked named the **holdoutset**) with new wear and/or soiling patterns (*data_new*) are classfified with this model and accuracy is stored.
 In a next step another 180 new images (called the **testset**) are picked from *data_new* and also classified on pittings. All indifferent images (between a classification probability threshold) are relabeled by an expert with the presented GUI. The classification model then is retrained with those relabeled images. Finally, the retrained model classifies the **holdoutset** again and states the improvement (relatively to the first model without retraining)
 
 
@@ -26,9 +28,9 @@ This repository provides two datasets:
 
 
 ## Instructions
-This repo shows the example implementation of the presented online learning GUI on a usecase of pitting classification.
+This repo shows the example implementation of the presented online learning GUI on an usecase of pitting classification.
 
-The example script are as follows:
+The example scripts are as follows:
 
 ### Retrain model
 To conduct online learning you must run `run_online_learning.py`. If you want to adjust default settings follow the steps below:
@@ -61,7 +63,7 @@ All you have to do is to add it to `keras_pretrained_model`:
 #%% SET MODEL DIR:
 MODELDIR = r'keras_pretrained_model/best_CNN_2-dense-32-nodes-0.6-dropout'
 ```
-The model stated in `MODELDIR` will be used for retraining. Please consider that the model has to be reloaded after each retraining wih online learner.
+The model stated in `MODELDIR` will be used for retraining. Please consider that the model has to be reloaded after each retraining with online learner.
 
 In a last step you can define some hyperparameters for training and retraining.
 Furthermore you can dynamically define the threshold of uncertainty for images out of **testset** which should be relabeled (by default: 0.01)
